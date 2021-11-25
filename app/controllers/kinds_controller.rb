@@ -1,10 +1,6 @@
 class KindsController < ApplicationController
-  include ActionController::HttpAuthentication::Token::ControllerMethods
-
-  before_action :authenticate
+  before_action :authenticate_user!
   before_action :set_kind, only: [:show, :update, :destroy]
-
-  TOKEN = "secret123"
 
   # GET /kinds
   def index
@@ -59,13 +55,4 @@ class KindsController < ApplicationController
       params.require(:kind).permit(:description)
     end
 
-    def authenticate
-      authenticate_or_request_with_http_token do |token, options|
-
-        ActiveSupport::SecurityUtils.secure_compare(
-          ::Digest::SHA256.hexdigest(token),
-          ::Digest::SHA256.hexdigest(TOKEN)
-        )
-      end
-    end
 end
