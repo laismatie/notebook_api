@@ -1,4 +1,5 @@
-class ContactsController < ApplicationController
+module V1
+  class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :update, :destroy]
 
   # GET /contacts
@@ -48,5 +49,6 @@ class ContactsController < ApplicationController
     def contact_params
       ActiveModelSerializers::Deserialization.jsonapi_parse(params)
     end
+  end
 
 end
